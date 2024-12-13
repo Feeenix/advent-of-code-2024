@@ -15,7 +15,7 @@ def findAB(ax,ay,bx,by,gx,gy):
 
     # x = (g[1]-(b[1]/b[0])*g[0])/((a[1]/a[0])-(b[1]/b[0]))
     # bs = abs(x//b[0])-10
-    bs = math.floor((gx/bx -ax*gy/(bx*ay))/(1-ax*by/(bx*ay))-1)
+    bs = math.floor((gx/bx -ax*gy/(bx*ay))/(1-ax*by/(bx*ay)))
     cursor = bs*b
     prevcursor = cursor-b
 
@@ -47,7 +47,7 @@ t = (gx+ax*(by*t-gy)/ay)/bx
     
     
     
-    while True:
+    for _ in range(2):
         d = np.dot(cursor-g, (-a[1],a[0]))
         dp = np.dot(prevcursor-g, (-a[1],a[0]))
         # division = np.divide(g-cursor,a)
