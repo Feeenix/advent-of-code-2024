@@ -1,0 +1,67 @@
+
+
+
+// A = ...........xyz..ijk
+2,4 A%8 → B // B er siste 3 bits av A,  B = ijk
+1,2 B^2 → B // B = ijk^2
+7,5 A>>B → C // C = ...xyz
+4,5 B^C → B   // B = ijk^2^xyz = num^7 → xyz = ijk^2^num^7
+0,3 A>>3 → A  // A mister 3 bits hver gang
+1,7 B^7 → B   // B = ...101 num^7
+5,5 B%8 → OUT // B = ...010 num
+3,0 Jump if A!=0 to start
+
+
+
+// A = ...........xyz..111
+2,4 A%8 → B // B er siste 3 bits av A,  B = 111
+1,2 B^2 → B // B = 101
+7,5 A>>B → C // C = xyz
+4,5 B^C → B   // B = 101^xyz = 101 → xyz = 111
+0,3 A>>3 → A  // A mister 3 bits hver gang
+1,7 B^7 → B   // B = ...101
+5,5 B%8 → OUT // B = ...010
+3,0 Jump if A!=0 to start
+
+
+                    ijk111
+// A = ........xyz11111111
+2,4 A%8 → B // B er siste 3 bits av A,  B = 111
+1,2 B^2 → B // B = 101
+7,5 A>>B → C // C = xyz
+4,5 B^C → B   // B = 101^xyz = 101 → xyz = 111
+0,3 A>>3 → A  // A mister 3 bits hver gang
+1,7 B^7 → B   // B = ...101
+5,5 B%8 → OUT // B = ...010
+3,0 Jump if A!=0 to start
+
+
+
+
+
+
+if bc = 00, xyz = 000
+// A = ...........000bc111
+2,4 A%8 → B // B er siste 3 bits av A,  B = 0bc
+1,2 B^2 → B // B = 0Bc
+7,5 A>>B → C // C = xyz 
+4,5 B^C → B   // B = 011^xyz = 101 → xyz = 000
+0,3 A>>3 → A  // A mister 3 bits hver gang
+1,7 B^7 → B   // B = ...011
+5,5 B%8 → OUT // B = ...100
+3,0 Jump if A!=0 to start
+
+
+..........011..... # known num
+..........00100111 # xyz in A
+..........101..111 # xyz
+
+..........101..... # known num xor xyz in a
+..........101..111 # xyz
+
+..........111..... # known num xor xyz in a xor xyz
+
+xor 7
+..........000.....
+
+if _ == 0: valid
